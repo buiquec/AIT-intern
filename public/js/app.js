@@ -15,6 +15,7 @@ const cart = document.querySelector('.cart-list')
 async function main() {
     productList = await indexController.getAll()
     await showHomePage()
+    await showSearchResults()
     await showDetailPage()
     await showCartPage()
     const headerLogo = document.querySelector('.title')
@@ -22,14 +23,16 @@ async function main() {
         list.style.display = 'grid'
         detail.style.display = 'none'
         cart.style.display = 'none'
+        showHomePage()
     })
+    
 }
 
 async function showHomePage() {
     list.innerHTML = productList.map((product) => {
         return `
-        <div class="item">
-            <div class="item-anchor" data-id="${product.productId}">
+        <div class="item" data-id="${product.productId}">
+            <div class="item-anchor">
             <div class="item-image">
                 <img class="image" src="${product.image}" alt="item">
             </div>
@@ -41,19 +44,54 @@ async function showHomePage() {
     
 }
 
+async function showSearchResults() {
+    const searchBtn = document.getElementById('search-btn-header')
+    searchBtn.addEventListener("click", () => {
+        const keyword = document.getElementById('search-keyword').value.toLowerCase()
+        if (keyword) {
+            const searchResults = productList.filter((product) => {
+                return product.productName.toLowerCase().includes(keyword)
+            })
+            list.innerHTML = searchResults.map((result) => {
+                return `
+                <div class="item" data-id="${result.productId}">
+                    <div class="item-anchor">
+                    <div class="item-image">
+                        <img class="image" src="${result.image}" alt="item">
+                    </div>
+                    <div class="item-name">${result.productName}</div>
+                    <div class="item-price">$${result.price}</div>
+                    </div>
+                </div>`
+            }).join(" ")
+        } else {
+            showHomePage()
+        }
+    })
+}
+
 //render detail page
 async function showDetailPage() {
-    const itemElements = document.querySelectorAll('.item-anchor')
-    itemElements.forEach((item) => {
-        item.addEventListener('click', async () => {
+    // const itemElements = document.querySelectorAll('.item')
+    // itemElements.forEach((item) => {
+    //     item.addEventListener('click', async () => {
+    //         list.style.display = 'none'
+    //         detail.style.display = 'flex'
+    //         cart.style.display = 'none'
+    //         const id = item.getAttribute('data-id')
+    //         await renderDetailPage(productList, id)
+    //     })
+    // })
+    list.addEventListener('click', async (event) => {
+        const item = event.target.closest('.item')
+        if (item) {
             list.style.display = 'none'
             detail.style.display = 'flex'
             cart.style.display = 'none'
             const id = item.getAttribute('data-id')
             await renderDetailPage(productList, id)
-        })
-    })
-
+        }
+    });
 }
 //render cart page
 async function showCartPage() {
