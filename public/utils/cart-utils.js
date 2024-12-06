@@ -1,6 +1,7 @@
 const cartUtils = {
     cartItemNumber: JSON.parse(localStorage.getItem('cart')) || [],
-    cartDOM: document.querySelector('.span'),
+    cartNumberDOM: document.querySelector('.span'),
+    cartDOM: document.querySelector('.cart'),
     setCartItem: function(data) {
         localStorage.setItem('cart', JSON.stringify(data))
     }

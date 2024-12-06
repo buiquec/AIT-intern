@@ -1,17 +1,10 @@
-import indexController from "../controller/index-controller.js"
 import cartController from "../controller/cart-controller.js"
-document.addEventListener('DOMContentLoaded', () => {
-    renderDetailPage()
-    cartController.renderCartNumber()
-})
 
-async function renderDetailPage() {
-    const url = window.location.pathname
-    const params = url.split('/').pop()
-    const id = parseInt(params)
-    const product = await indexController.getByID(id)
-    const detail = document.querySelector('.item-detail')
-    detail.innerHTML = `
+export async function renderDetailPage(products = [], id) {
+    try {
+        const product = await products.find(product => product.productId == id)
+        const detail = document.querySelector('.item-detail')
+        detail.innerHTML = `
             <div class="item-detail-flex">
                 <div class="item-media">
                     <img class="item-detail-image" src="${product.image}" alt="Item-detail">
@@ -28,16 +21,21 @@ async function renderDetailPage() {
                 </div>
             </div>
         `
-    const btn = document.getElementById('add-btn')
-    btn.addEventListener('click', () => {
-        const quantity = parseInt(document.getElementById('quantity').value)
-        cartController.addToCart(product.productId, quantity)
-        alert('Item added to cart')
-        renderDetailPage()
-        cartController.renderCartNumber()
-    })
+        
+        const btn = document.getElementById('add-btn')
+        btn.addEventListener('click', () => {
+            const quantity = parseInt(document.getElementById('quantity').value)
+            cartController.addToCart(product.productId, quantity)
+            alert('Item added to cart')
+            cartController.renderCartNumber()
+        })
+    } catch (error) {
+        console.log(error)
+    }
 
 }
+
+
 // function addToCart(productId) {
 //     const quantity = parseInt(document.getElementById('quantity').value)
 //     let cart = JSON.parse(localStorage.getItem('cart')) || []
