@@ -12,14 +12,6 @@ app.get('/home', (req, res) => {
     res.sendFile(__dirname + '/public/views/index.html')
 })
 
-app.get('/products/:id', (req, res) => {
-    res.sendFile(__dirname + '/public/views/detail.html')
-})
-
-app.get('/cart', (req, res) => {
-    res.sendFile(__dirname + '/public/views/cart.html')
-})
-
 app.listen(4040, () => {
     console.log('====================================');
     console.log('CLient server running on port 4040');

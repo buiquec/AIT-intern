@@ -24,11 +24,12 @@ export async function renderDetailPage(products = [], id) {
         
         const btn = document.getElementById('add-btn')
         btn.addEventListener('click', () => {
-            const quantity = parseInt(document.getElementById('quantity').value)
+            const quantity = +(document.getElementById('quantity').value)
             cartController.addToCart(product.productId, quantity)
             alert('Item added to cart')
             cartController.renderCartNumber()
         })
+
     } catch (error) {
         console.log(error)
     }

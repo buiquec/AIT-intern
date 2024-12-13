@@ -55,7 +55,6 @@ export async function renderCart(productList = []) {
                 const totalPrice = cartController.calculatePrice(checkedItems)
                 const priceDOM = document.querySelector('.total-price-title')
                 priceDOM.innerHTML = `The total price is: $${totalPrice}`
-                console.log(totalPrice)
             })
         })
     } catch (error) {

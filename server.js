@@ -1,21 +1,30 @@
 const express = require('express')
 const app = express();
-const cors = require('cors');
+const cors = require('cors')
+const mongoose = require('mongoose')
+const getAllProducts = require('./public/service/product-service.js')
+
+const uri = 'mongodb://localhost:27017/AIT-intern'
+const PORT = 9090
 
 app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+async function MongoDBConnect() {
+    try {
+        await mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true })
+        console.log("Connected to Mongoose")
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+app.get('/products', getAllProducts)
 
 
-app.get('/api/products', (req, res) => {
-    res.json(productList)
-})
+const startServer = async () => {
+    await MongoDBConnect()
+    app.listen(PORT, () => {
+        console.log(`Server connected to port ${PORT}`)
+    })
+}
+startServer()
 
-app.get('/api/products/:id', (req, res) => {
-    const id = req.params.id
-    res.json(productList[id - 1])
-})
-
-app.listen(4080, () => {
-    console.log('Backend running on port 4080')
-})
