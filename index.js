@@ -11,6 +11,9 @@ app.use(express.static('public'))
 app.get('/home', (req, res) => {
     res.sendFile(__dirname + '/public/views/index.html')
 })
+app.get('/dashboard', (req, res) => {
+    res.sendFile(__dirname + '/public/views/dashboard.html')
+})
 
 app.listen(4040, () => {
     console.log('====================================');
