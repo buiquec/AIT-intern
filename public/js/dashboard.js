@@ -12,6 +12,7 @@ const updateForm = document.querySelector('.update-form')
 async function main() {
   productList = await indexController.getAll()
   await renderProductsToTable(productList)
+  addProductToTable()
   updateProductInfoToTable()
 }
 
@@ -28,6 +29,7 @@ const renderProductsToTable = async (products = []) => {
         <td class="tg-0lax">${product.type || 'not selected'}</td>
         <td class="tg-0lax">
         <button class="db-product-update" data-id="${product.productId}">Update</button>
+        <button class="db-product-delete" data-id="${product.productId}">Delete</button>
         </td>
       </tr>
       `
@@ -135,3 +137,20 @@ const renderUpdateForm = (id) => {
   })
 }
 
+const addProductToTable = () => {
+  const addProductBtn = document.querySelector('.add-product-btn')
+  addProductBtn.addEventListener('click', () => {
+    // open form 
+  })
+}
+
+
+const deleteProduct = () => {
+  const productDeleteBtn = document.querySelectorAll('.db-product-delete')
+  productDeleteBtn.forEach((element) => {
+    element.addEventListener('click', () => {
+      const clickedProductId = element.getAttribute('data-id')
+      
+    })
+  })
+}

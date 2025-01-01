@@ -7,9 +7,10 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
-app.use(express.static('public'))
-app.get('/home', (req, res) => {
-    res.sendFile(__dirname + '/public/views/index.html')
+app.use(express.static(__dirname + '/client/build'))
+// /home
+app.get('*', (req, res) => {
+    res.sendFile(__dirname + '/client/build/index.html')
 })
 app.get('/dashboard', (req, res) => {
     res.sendFile(__dirname + '/public/views/dashboard.html')

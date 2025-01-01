@@ -22,7 +22,6 @@ async function main() {
     headerLogo.addEventListener('click', async () => {
         showHomePage()
     })
-
 }
 
 async function showHomePage() {
