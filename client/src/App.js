@@ -8,10 +8,11 @@ import Cart from "./components/cart/Cart";
 
 function App() {
   //states
+  const [productList, setProductList] = useState([])
   const [display, setDisplay] = useState('home')
   const [clickedProductId, setClickedProductId] = useState(null)
   const [cartNumber, setCartNumber] = useState(null)
-  const [productList, setProductList] = useState([])
+  const [searchKey, setSearchKey] = useState('')
   // fetch api
   useEffect(() => {
     async function fetchProducts() {
@@ -32,19 +33,32 @@ function App() {
   }
   // handle click logo
   const handleClickLogo = () => {
+    setSearchKey('')
     setDisplay('home')
   }
+  //handle click cart logo
   const handleCartClick = () => {
     setDisplay('cart')
+  }
+  //handle search input
+  const handleSearchKeyword = (keyword) => {
+    setSearchKey(keyword)
   }
 
   // render views
   const renderView = () => {
     if (display === "home") {
-      return <Home onClickDetail={handleClickProduct} products={productList} />
+      return <Home
+        onClickDetail={handleClickProduct}
+        products={productList}
+        keyword={searchKey}
+      />
     }
     if (display === "detail") {
-      return <Detail clickedId={clickedProductId} products={productList} />
+      return <Detail
+        clickedId={clickedProductId}
+        products={productList}
+      />
     }
     if (display === "cart") {
       return <Cart />
@@ -57,6 +71,7 @@ function App() {
         onLogoClick={handleClickLogo}
         onCartClick={handleCartClick}
         onCartNumberChange={cartNumber}
+        onSearch={handleSearchKeyword}
       />
       {renderView()}
     </div>

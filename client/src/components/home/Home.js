@@ -1,11 +1,13 @@
 import React from "react";
 import Product from "./elements/Product";
 
-function Home({ products, onClickDetail }) {
-    
+function Home({ products, onClickDetail, keyword }) {
+    const filteredProducts = keyword ?
+        products.filter(product => product.productName.toLowerCase().includes(keyword.toLowerCase())) 
+        : products
     return (
         <div className="item-list">
-            {products.map(product => {
+            {filteredProducts.map(product => {
                 return <Product
                     key={product.productId}
                     props={product}

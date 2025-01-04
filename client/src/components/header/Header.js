@@ -1,11 +1,16 @@
 import React from 'react'
 import Cart from './elements/Cart'
 import Logo from './elements/Logo'
-export default function Header({ onLogoClick, onCartClick, onCartNumberChange }) {
+import Searchbar from './elements/Searchbar'
+export default function Header({ onLogoClick, onCartClick, onCartNumberChange, onSearch }) {
     return (
         <div className='header'>
             <Logo onClick={onLogoClick} />
-            <Cart onClick={onCartClick}
+            <Searchbar
+                onSearch={onSearch}
+            />
+            <Cart
+                onClick={onCartClick}
                 cartNumber={onCartNumberChange}
             />
         </div>
