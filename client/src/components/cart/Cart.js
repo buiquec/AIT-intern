@@ -1,17 +1,24 @@
-import React from 'react'
+import { useSelector } from "react-redux"
+import CartProduct from "./elements/CartProduct"
 
-export default function Cart() {
+export default function Cart({ products }) {
+  const productCart = useSelector(state => state.cart)
   return (
-    <div className="cart-item">
-      {/* <input className="cart-item-checkbox" type="checkbox" name="item"
-        data-id-check={cartProduct.productId}
-        data-quantity-check={item.quantity}
-        data-price-check={cartProduct.price}></input>
-      <img className="item-cart-image" src="${cartProduct.image}" alt=""></img>
-      <div className="item-cart-title">{cartProduct.productName}</div>
-      <div className="item-cart-info">${cartProduct.price}</div>
-      <div className="item-cart-info">{item.quantity}</div>
-      <button className="cart-remove-btn" data-id={cartProduct.productId}>Remove</button> */}
-    </div>
+    <>
+      {productCart.length > 0 ? (
+        <div className="cart-list">
+          {productCart.map((item) => {
+            const cartProduct = products.find(product => product.productId === item.productId)
+            return <CartProduct
+              key={item.productId}
+              cartProduct={cartProduct}
+              item={item}
+            />
+          })}
+        </div>
+      ) : (
+        <div>No product added to Cart</div>
+      )}
+    </>
   )
 }

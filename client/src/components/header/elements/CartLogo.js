@@ -1,7 +1,8 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
-export default function Cart({onClick, cartNumber}) {
-    
+export default function CartLogo({onClick}) {
+    const cartNumber = useSelector(state => state.cart.length)
     return (
         <div onClick={onClick}>
             <div className="cart">

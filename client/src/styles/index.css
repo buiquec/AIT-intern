@@ -109,6 +109,12 @@
     height: 70%;
 }
 
+.item-detail-title{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
 .item-detail-flex {
     width: 100%;
     height: 100%;

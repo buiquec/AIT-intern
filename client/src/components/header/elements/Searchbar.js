@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setSearchKeyword } from '../../../features/search/searchSlice'
+import { renderHome } from '../../../features/render/renderSlice'
 
-export default function Searchbar({ onSearch }) {
+export default function Searchbar() {
+    const dispatch = useDispatch()
     const [inputValue, setInputValue] = useState('')
     const handleSearchClick = () => {
-        onSearch(inputValue)
+        dispatch(setSearchKeyword(inputValue))
+        dispatch(renderHome())
     }
     return (
         <div className="search-input-header">

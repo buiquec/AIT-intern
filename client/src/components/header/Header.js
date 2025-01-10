@@ -1,17 +1,25 @@
 import React from 'react'
-import Cart from './elements/Cart'
+import CartLogo from './elements/CartLogo'
 import Logo from './elements/Logo'
 import Searchbar from './elements/Searchbar'
-export default function Header({ onLogoClick, onCartClick, onCartNumberChange, onSearch }) {
+import { useDispatch } from 'react-redux'
+import { renderCart, renderHome } from '../../features/render/renderSlice'
+import { clearSearchKeyword } from '../../features/search/searchSlice'
+export default function Header() {
+    const dispatch = useDispatch()
+    const handleLogoClick = () => {
+        dispatch(clearSearchKeyword())
+        dispatch(renderHome())
+    }
+    const handleCartLogoClick = () => {
+        dispatch(renderCart())
+    }
     return (
         <div className='header'>
-            <Logo onClick={onLogoClick} />
-            <Searchbar
-                onSearch={onSearch}
-            />
-            <Cart
-                onClick={onCartClick}
-                cartNumber={onCartNumberChange}
+            <Logo onClick={handleLogoClick} />
+            <Searchbar/>
+            <CartLogo
+                onClick={handleCartLogoClick}
             />
         </div>
     )
