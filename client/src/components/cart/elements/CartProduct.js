@@ -2,11 +2,10 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { removeProductFromCart } from '../../../features/cart/cartSlice'
 
-export default function CartProduct({ cartProduct, item, selectedProduct, handleClickCheckbox, handleRemove }) {
+export default function CartProduct({ cartProduct, item, selectedProduct, handleClickCheckbox }) {
   const dispatch = useDispatch()
   const handleDeleteCartItem = () => {
     dispatch(removeProductFromCart({ productId: item.productId }))
-    handleRemove(item.productId)
   }
   return (
     <div className="cart-item">

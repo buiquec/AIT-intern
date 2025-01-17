@@ -20,20 +20,9 @@ export default function Cart({ products }) {
       return newCheckedItems // return that new Set
     })
   }
-  //handle check when remove all
+  //handle remove all
   const removeAllProductFromCart = () => {
     dispatch(clearCart())
-    setCheckedItems(new Set())
-  }
-  //handle check when remove an item
-  const handleRemoveItem = (id) => {
-    setCheckedItems((prevCheckedItems) => {
-      const newCheckedItems = new Set(prevCheckedItems)
-      if (newCheckedItems.has(id)) {
-        newCheckedItems.delete(id)
-      }
-      return newCheckedItems
-    })
   }
   //calculate
   const calculateTotalPrice = useMemo(() => {
@@ -44,7 +33,7 @@ export default function Cart({ products }) {
       }
       return totalPrice
     }, 0)
-  }, [checkedItems])
+  }, [checkedItems, productCart])
   
   return (
     <>
@@ -57,7 +46,6 @@ export default function Cart({ products }) {
                 key={item.productId}
                 handleClickCheckbox={handleCheck}
                 selectedProduct={checkedItems}
-                handleRemove={handleRemoveItem}
                 cartProduct={cartProduct}
                 item={item}
               />
