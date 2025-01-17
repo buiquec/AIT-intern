@@ -2,19 +2,24 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { removeProductFromCart } from '../../../features/cart/cartSlice'
 
-export default function CartProduct ({cartProduct, item}) {
+export default function CartProduct({ cartProduct, item, selectedProduct, handleClickCheckbox, handleRemove }) {
   const dispatch = useDispatch()
   const handleDeleteCartItem = () => {
-    dispatch(removeProductFromCart({productId: item.productId}))
+    dispatch(removeProductFromCart({ productId: item.productId }))
+    handleRemove(item.productId)
   }
   return (
     <div className="cart-item">
-        <input className="cart-item-checkbox" type="checkbox" name="item"></input>
-          <img className="item-cart-image" src={cartProduct.image} alt=""></img>
-          <div className="item-cart-title">{cartProduct.productName}</div>
-          <div className="item-cart-info">${cartProduct.price}</div>
-          <div className="item-cart-info">{item.quantity}</div>
-          <button className="cart-remove-btn" onClick={handleDeleteCartItem}>Remove</button>
+      <input className="cart-item-checkbox" type="checkbox"
+        checked={selectedProduct.has(item.productId)}
+        onChange={() => { handleClickCheckbox(item.productId) }}
+        name="item">
+      </input>
+      <img className="item-cart-image" src={cartProduct.image} alt=""></img>
+      <div className="item-cart-title">{cartProduct.productName}</div>
+      <div className="item-cart-info">${cartProduct.price}</div>
+      <div className="item-cart-info">{item.quantity}</div>
+      <button className="cart-remove-btn" onClick={handleDeleteCartItem}>Remove</button>
     </div>
   )
 }

@@ -4,9 +4,6 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState: [],
     reducers: {
-        getLength(cart) {
-            return cart.length
-        },
         addProductToCart(cart, action) {
             const { productId, quantity } = action.payload
             const existingItem = cart.some(item => item.productId === productId)
@@ -25,7 +22,7 @@ const cartSlice = createSlice({
             return cart.filter(item => item.productId !== id)
         },
         clearCart(cart) {
-            cart = []
+            return cart = []
         }
     }
 })

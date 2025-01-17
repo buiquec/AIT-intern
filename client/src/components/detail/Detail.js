@@ -8,7 +8,7 @@ export default function Detail({ clickedId, products, clearClickedId }) {
     const dispatch = useDispatch()
 
     const handleSubmitAddProduct = () => {
-        dispatch(addProductToCart({ productId: clickedId, quantity: addedQuantity}))
+        dispatch(addProductToCart({ productId: clickedId, quantity: addedQuantity , price: product.price}))
     }
     return (
         <div className="item-detail-flex">
@@ -24,14 +24,14 @@ export default function Detail({ clickedId, products, clearClickedId }) {
                 <div className="item-description">{product.description}</div>
                 <div className="add-cart-form">
                     <p>Choose amount: </p>
-                    <input type="number" id="quantity" min="1" 
+                    <input type="number" id="quantity" min="1"
                         value={addedQuantity}
                         max="10"
-                        onChange={(e) => {setAddedQuantity(+(e.target.value))}}
+                        onChange={(e) => { setAddedQuantity(+(e.target.value)) }}
                     ></input>
                     <button id="add-btn" onClick={handleSubmitAddProduct}>Add to Cart</button>
                 </div>
-                
+
             </div>
         </div>
     )
